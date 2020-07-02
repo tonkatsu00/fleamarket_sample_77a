@@ -29,10 +29,4 @@ Rails.application.routes.draw do
 
   resources :categories, only: [:index, :show]
 
-  resources :comments, only:[:create,:update,:destroy] do
-    member do
-      get 'restore'
-    end
-  end
-
 end
