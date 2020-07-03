@@ -35,27 +35,11 @@ before_action :set_products, only: [:show, :edit, :update, :destroy]
   end
 
   def edit
-    @product.images.build
-  end
-
-  def update
-    @product.update(product_params)
-    # binding.pry
-    if @product.update(product_params)
-      redirect_to root_path, notice: '更新されました'
-    else
-      render :edit
-    end
-  end
-
-  def edit
-    @product = Product.find(params[:id])
-    @product.images.build
-  end
-
-  def update
-    @product.update(product_params)
     # @product.images.build
+  end
+
+  def update
+    @product.update(product_params)
     # binding.pry
     if @product.update(product_params)
       redirect_to root_path, notice: '更新されました'
@@ -98,16 +82,12 @@ before_action :set_products, only: [:show, :edit, :update, :destroy]
       :product_details,
       :shipping_method,
       :category_id,
-      images_attributes: [:image] 
+      images_attributes: [:image, :_destroy, :id]
     ).merge(exhibitor: current_user).merge(user_id: current_user.id)
   end
 
   def set_parents
     @parents = Category.where(ancestry: nil)
-  end
-
-  def set_products
-    @product = Product.find(params[:id])
   end
 
 end

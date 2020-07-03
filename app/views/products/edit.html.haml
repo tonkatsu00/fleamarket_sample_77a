@@ -5,14 +5,35 @@
       商品
       %span.form-require  ※必須
       = f.text_field :name, {class: "product__name"}
+      
+      - @product.images.each do |image|
+        .preview-box
+          .upper-box
+            = image_tag image.image.url width: "112", height: "112", alt: "preview"
 
-      %p
-        出品画像
-        %span.form-require ※必須 &nbsp; 5ファイルまで選択可能
-      = f.fields_for :images do |i|
-        = i.file_field :image, {class: "product__image", onchange: "OnFileSelect(this)", accept: "image/*", type: "file", required: ""}
-        %ul.product__image__placeholder
-          %ul#ID001
+      .product-new__field__uploader
+        = f.fields_for :images do |image|
+          %ul#previews
+            %li.input
+              %label.upload-label
+                .upload-label__text
+                  %p クリックしてファイルをアップロード
+                .input-area
+                  = image.file_field :image, class: "hidden image_upload"
+          -# .lower-box
+          -#   .update-box
+          -#     %label.edit-btn 編集
+          -#   .delete-box
+          -#     .delete-btn
+          -#       %span 削除
+
+      -# %p
+      -#   出品画像
+      -#   %span.form-require ※必須 &nbsp; 5ファイルまで選択可能
+      -# = f.fields_for :images do |i|
+      -#   = i.file_field :image, {class: "product__image", onchange: "OnFileSelect(this)", accept: "image/*", type: "file", required: ""}
+      -#   %ul.product__image__placeholder
+      -#     %ul#ID001
 
       %br
         価格
