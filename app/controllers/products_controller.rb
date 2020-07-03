@@ -1,9 +1,11 @@
 class ProductsController < ApplicationController
 before_action :set_parents, only: [:index, :new, :create, :show, :edit]
-before_action :set_products, only: [:show, :edit, :update, :destroy]
+before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
     @products = Product.includes(:images).order('created_at DESC').all.page(params[:page]).per(4)
+    @parents = Category.where(ancestry: nil)
+   
   end
 
   def new
@@ -11,7 +13,7 @@ before_action :set_products, only: [:show, :edit, :update, :destroy]
     @product.images.build
   end
 
-  def show
+  def show   
     @comment = Comment.new
     @commentALL = @product.comments
   end
@@ -30,8 +32,7 @@ before_action :set_products, only: [:show, :edit, :update, :destroy]
       redirect_to root_path
     else
       redirect_to product_path(@product.id)
-      product.destroy
-    end
+    end  
   end
 
   def edit
@@ -40,7 +41,6 @@ before_action :set_products, only: [:show, :edit, :update, :destroy]
 
   def update
     @product.update(product_params)
-    # binding.pry
     if @product.update(product_params)
       redirect_to root_path, notice: '更新されました'
     else
@@ -60,12 +60,6 @@ before_action :set_products, only: [:show, :edit, :update, :destroy]
         end
       end
     end
-
-  end
-
-
-  def set_products
-    @product = Product.find(params[:id])
   end
 
   private
@@ -90,4 +84,7 @@ before_action :set_products, only: [:show, :edit, :update, :destroy]
     @parents = Category.where(ancestry: nil)
   end
 
+  def set_product
+    @product = Product.find(params[:id])
+  end
 end
