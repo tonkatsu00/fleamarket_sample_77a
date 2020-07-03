@@ -20,17 +20,6 @@ ActiveRecord::Schema.define(version: 2020_07_03_073237) do
     t.index ["ancestry"], name: "index_categories_on_ancestry"
   end
 
-  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.bigint "user_id", null: false
-    t.integer "delete_check", default: 0
-    t.string "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_comments_on_product_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
-  end
-
   create_table "credit_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.datetime "created_at", null: false
@@ -112,6 +101,18 @@ ActiveRecord::Schema.define(version: 2020_07_03_073237) do
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
+  create_table "profieladdresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "postal_code"
+    t.string "prefectures"
+    t.string "city"
+    t.string "address"
+    t.string "building"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profieladdresses_on_user_id"
+  end
+
   create_table "streetaddresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "postal_code", null: false
     t.string "city", null: false
@@ -142,8 +143,6 @@ ActiveRecord::Schema.define(version: 2020_07_03_073237) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "comments", "products"
-  add_foreign_key "comments", "users"
   add_foreign_key "credit_cards", "users"
   add_foreign_key "deliveryaddresses", "users"
   add_foreign_key "images", "products"
@@ -156,5 +155,6 @@ ActiveRecord::Schema.define(version: 2020_07_03_073237) do
   add_foreign_key "products", "users"
   add_foreign_key "products", "users", column: "buyer_id"
   add_foreign_key "products", "users", column: "exhibitor_id"
+  add_foreign_key "profieladdresses", "users"
   add_foreign_key "streetaddresses", "users"
 end

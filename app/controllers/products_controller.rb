@@ -13,6 +13,7 @@ before_action :set_product, only: [:show, :edit, :update, :destroy]
     @product.images.build
   end
 
+
   def show   
     @comment = Comment.new
     @commentALL = @product.comments
@@ -62,6 +63,9 @@ before_action :set_product, only: [:show, :edit, :update, :destroy]
     end
   end
 
+  def set_parents
+    @parents = Category.where(ancestry: nil)
+  end
 
   def set_products
     @product = Product.find(params[:id])
@@ -87,9 +91,5 @@ before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def set_parents
     @parents = Category.where(ancestry: nil)
-  end
-
-  def set_product
-    @product = Product.find(params[:id])
   end
 end
