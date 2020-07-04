@@ -49,17 +49,10 @@
         %tr
           %th カテゴリー
           %td
-            %ul
-              %li
-                %span.form-require  ※必須
-                -# = f.collection_select :category_id, @parents, :id, :name, { include_blank: "選択してください", selected:"" }, class: "product__category", id: "category_form", required: ""
-                = f.collection_select :category_id, @parents, :id, :name ,{include_blank: "選択してください", selected: @product.category.parent.parent_id}, class: 'product__category-edit', id: 'parent_category_field-edit', name: "", required: ""
-              %li
-                = f.collection_select :category_id, @product.category.parent.parent.children, :id, :name ,{include_blank: "選択してください", selected: @product.category.parent_id}, class: 'child_category-edit', id: 'child_category_field-edit', name: "", required: ""
-                #child_category_field-edit
-              %li
-                = f.collection_select :category_id, @product.category.parent.children, :id, :name ,{include_blank: "選択してください", selected: @product.category_id}, class: 'grandchild_category-edit', id: 'grandchild_category_field-edit', name: "product[category_id]", required: ""
-                #grandchild_category_field-edit
+            %span.form-require  ※必須
+            = f.collection_select :category_id, @parents, :id, :name, { include_blank: "選択してください", selected:"" }, id: "category_form", required: "", class: "product__category"
+            -# #child_category_field 
+            -# #grandchild_category_field 
 
         %tr
           %th 商品のサイズ
