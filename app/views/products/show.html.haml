@@ -1,3 +1,4 @@
+- breadcrumb :productshow
 .wrapper-show
   .show-item
     .show-item__name
@@ -79,7 +80,7 @@
                   = comment.comment
                   .comment_create_at
                     = comment.created_at.strftime("%Y年%m月%d日 %H時%M分")
-                  - if comment.product.exhibitor == current_user
+                  - if comment.user.id == current_user.id
                     .comment_delete.me_pre_delete{data:{index: comment.id}}     
                       = link_to '削除する', comment_path(comment.id) ,method: :patch
               = render 'products/template_comment/comment_name',comment: comment                    
@@ -113,14 +114,13 @@
   .links
     %ul
       %li
-        = link_to ""
-        前の商品
         %i.fas.fa-chevron-left
+        = link_to "前の商品",product_path(@product.id - 1)
       %li
-        = link_to ""
-        後の商品
+        = link_to "次の商品",product_path(@product.id + 1)
         %i.fas.fa-chevron-right
     .category-link
-      レディースをもっと見る
+      = link_to "#{@product.category.parent.name}",category_path(@product.category.parent.id)
+      をもっと見る
   =render 'home/main-bottom'
   =render 'home/footer'
