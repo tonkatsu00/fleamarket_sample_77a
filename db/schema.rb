@@ -64,12 +64,12 @@ ActiveRecord::Schema.define(version: 2020_07_07_101521) do
   end
 
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "product_id"
     t.bigint "deliveryaddress_id"
     t.bigint "exhibitor_id"
     t.bigint "buyer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "product_id"
     t.bigint "credit_card_id"
     t.index ["buyer_id"], name: "index_orders_on_buyer_id"
     t.index ["credit_card_id"], name: "index_orders_on_credit_card_id"
@@ -155,5 +155,6 @@ ActiveRecord::Schema.define(version: 2020_07_07_101521) do
   add_foreign_key "products", "users"
   add_foreign_key "products", "users", column: "buyer_id"
   add_foreign_key "products", "users", column: "exhibitor_id"
+  add_foreign_key "profieladdresses", "users"
   add_foreign_key "streetaddresses", "users"
 end
