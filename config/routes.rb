@@ -56,6 +56,4 @@ end
       get 'restore'
     end
   end
-
-  
 end

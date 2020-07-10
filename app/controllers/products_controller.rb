@@ -74,6 +74,9 @@ before_action :set_product, only: [:show, :edit, :update, :destroy]
     end
   end
 
+  def set_parents
+    @parents = Category.where(ancestry: nil)
+  end
 
   private
   def product_params
@@ -100,6 +103,5 @@ before_action :set_product, only: [:show, :edit, :update, :destroy]
   def set_product
     @product = Product.find(params[:id])
   end
-
 end
 

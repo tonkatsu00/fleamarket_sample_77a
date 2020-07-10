@@ -20,17 +20,6 @@ ActiveRecord::Schema.define(version: 2020_07_09_083225) do
     t.index ["ancestry"], name: "index_categories_on_ancestry"
   end
 
-  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.bigint "user_id", null: false
-    t.integer "delete_check", default: 0
-    t.string "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_comments_on_product_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
-  end
-
   create_table "credit_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.datetime "created_at", null: false
@@ -151,8 +140,6 @@ ActiveRecord::Schema.define(version: 2020_07_09_083225) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "comments", "products"
-  add_foreign_key "comments", "users"
   add_foreign_key "credit_cards", "users"
   add_foreign_key "deliveryaddresses", "users"
   add_foreign_key "images", "products"
